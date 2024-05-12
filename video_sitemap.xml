@@ -1,10 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
-        xmlns:video="http://www.google.com/schemas/sitemap-video/1.1">
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     <url>
-        <loc>videos/0c4387f9baf34ec6633f6be58684d49b.mp4</loc>
-        <video:video>
-            <video:content_loc>videos/0c4387f9baf34ec6633f6be58684d49b.mp4</video:content_loc>
-        </video:video>
+        <loc>https://chrushed.github.io/videos/0c4387f9baf34ec6633f6be58684d49b.mp4</loc>
     </url>
-</urlset>
